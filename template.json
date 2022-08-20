@@ -1,57 +1,6 @@
 {
 	"version": "2",
 	"templates": [
-			{
-			"categories": [
-	            "Other"
-	        ],
-	        "description": "AdGuard Home is a network-wide software for blocking ads & tracking. After you set it up, it’ll cover ALL your home devices, and you don’t need any client-side software for that. With the rise of Internet-Of-Things and connected devices, it becomes more and more important to be able to control your whole network.",
-	        "env": [
-		        {
-		          "default": "1000",
-		          "label": "PUID",
-		          "name": "PUID"
-		        },
-		        {
-		          "default": "100",
-		          "label": "PGID",
-		          "name": "PGID"
-		        },
-		        {
-		          "label": "CONTEXT_PATH",
-		          "name": "CONTEXT_PATH",
-		          "set": "adguard home"
-		        }
-	        ],
-	        "image": "adguard/adguardhome:latest",
-	        "logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/adguard.png",
-	        "name": "adguard",
-	        "platform": "linux",
-	        "ports": [
-		        "53:53/tcp",
-		        "53:53/udp",
-		        "67:67/udp",
-		        "68:68/tcp",
-		        "68:68/udp",
-		        "80:80/tcp",
-		        "443:443/tcp",
-		        "853:853/tcp",
-		        "3000:3000/tcp"
-	        ],
-	        "restart_policy": "unless-stopped",
-	        "title": "Adguard",
-	        "type": 1,
-	        "volumes": [
-		        {
-		          "bind": "/portainer/Files/AppData/Adguard/Workdir",
-		          "container": "/opt/adguardhome/work"
-		        },
-		        {
-		          "bind": "/portainer/Files/AppData/Adguard/Conf",
-		          "container": "/opt/adguardhome/conf"
-		        }
-        	]
-        },
 		{
 			"categories": [
 				"Music"
@@ -79,8 +28,8 @@
 					"set": "-Xms256m -Xmx512m"
 				}
 			],
-			"image": "linuxserver/airsonic:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/airsonic-logo.png",
+			"image": "lscr.io/linuxserver/airsonic:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/airsonic-logo.png",
 			"name": "airsonic",
 			"platform": "linux",
 			"ports": [
@@ -91,23 +40,23 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Music",
+					"bind": "/srv/dev-disk-by-label-media/Music",
 					"container": "/music"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Airsonic/Playlists",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Airsonic/Playlists",
 					"container": "/playlists"
 				},
 				{
-					"bind": "/portainer/Podcasts",
+					"bind": "/srv/dev-disk-by-label-media/Podcasts",
 					"container": "/podcasts"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Airsonic/Media",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Airsonic/Media",
 					"container": "/media"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Airsonic/",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Airsonic/",
 					"container": "/config"
 				}
 			]
@@ -138,86 +87,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Authelia",
-					"container": "/etc/authelia/"
-				}
-			]
-		},
-		{
-			"categories": [
-				"Other",
-				"Tools"
-			],
-			"description": "Embystat is a personal web server that can calculate all kinds of statistics from your (local) Emby server. Just install this on your server and let him calculate all kinds of fun stuff.",
-			"image": "linuxserver/embystat:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/embystat.png",
-			"name": "EmbyStat",
-			"note": "Access the ui at your-ip:6555. Follow the setup wizard on initial install. Then configure the required services.",
-			"platform": "linux",
-			"ports": [
-				"6555:6555/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "EmbyStat",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/EmbyStat",
-					"container": "/config"
-				}
-			]
-		},
-		{
-			"categories": [
-				"Other",
-				"Tools"
-			],
-			"description": "Self-hosted snippet manager.",
-			"image": "snowmean/snibox-sqlite:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/snibox.png",
-			"name": "Snibox",
-			"note": "Label-oriented interface with search. Supports various programming languages, markdown, plain text.",
-			"platform": "linux",
-			"ports": [
-				"3010:3000/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "Snibox",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/Snibox",
-					"container": "/app/db/database"
-				}
-			]
-		},
-		{
-			"categories": [
-				"Other",
-				"Tools",
-				"Authentication"
-			],
-			"description": "An open-source authentication and authorization server providing 2-factor authentication and single sign-on (SSO) for your applications via a web portal.",
-			"env": [
-				{
-					"label": "TZ",
-					"name": "TZ"
-				}
-			],
-			"image": "authelia/authelia:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/authelia.png",
-			"name": "authelia",
-			"note": "Requires a configuration.yml file in order to work. Documentation is Available \u003ca href='https://docs.authelia.com/deployment/deployment-ha'\u003ehere\u003c/a\u003e.",
-			"platform": "linux",
-			"ports": [
-				"9091:9091/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "Authelia",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/Authelia",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Authelia",
 					"container": "/etc/authelia/"
 				}
 			]
@@ -244,8 +114,8 @@
 					"name": "TZ"
 				}
 			],
-			"image": "linuxserver/bazarr:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/bazarr.png",
+			"image": "lscr.io/linuxserver/bazarr:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/bazarr.png",
 			"name": "Bazarr",
 			"platform": "linux",
 			"ports": [
@@ -256,15 +126,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Bazarr",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Bazarr",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/tv"
 				},
 				{
-					"bind": "/portainer/Movies",
+					"bind": "/srv/dev-disk-by-label-media/Movies",
 					"container": "/movies"
 				}
 			]
@@ -286,8 +156,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/beets:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/beets-icon.png",
+			"image": "lscr.io/linuxserver/beets:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/beets-icon.png",
 			"name": "beets",
 			"platform": "linux",
 			"ports": [
@@ -298,40 +168,16 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Beets",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Beets",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/Music",
+					"bind": "/srv/dev-disk-by-label-media/Music",
 					"container": "/music"
-				}
-			]
-		},
-		{
-			"categories": [
-				"Other",
-				"Tools"
-			],
-			"description": "This is a Bitwarden server API implementation written in Rust compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal..",
-			"image": "bitwardenrs/server:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/bitwarden.png",
-			"name": "bitwardenrs",
-			"note": "This project is not associated with the Bitwarden project nor 8bit Solutions LLC.",
-			"platform": "linux",
-			"ports": [
-				":80/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "Bitwarden RS",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/Bitwarden-rs",
-					"container": "/config"
 				}
 			]
 		},
@@ -358,8 +204,8 @@
 					"name": "CONTEXT_PATH"
 				}
 			],
-			"image": "linuxserver/booksonic:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/booksonic.png",
+			"image": "lscr.io/linuxserver/booksonic:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/booksonic.png",
 			"name": "booksonic",
 			"platform": "linux",
 			"ports": [
@@ -370,15 +216,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Books",
+					"bind": "/srv/dev-disk-by-label-media/Books",
 					"container": "/books"
 				},
 				{
-					"bind": "/portainer/Files/Podcasts",
+					"bind": "/srv/dev-disk-by-label-media/Files/Podcasts",
 					"container": "/podcast"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Booksonic",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Booksonic",
 					"container": "/config"
 				}
 			]
@@ -416,12 +262,12 @@
 					"name": "PORT"
 				}
 			],
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/bookstack2.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/bookstack2.png",
 			"note": "Default login is admin@admin.com with a password of password. The database created is called bookstackapp and the database user is called bookstack",
 			"platform": "linux",
 			"repository": {
-				"stackfile": "Template/Stack/bookstack.yml",
-				"url": "https://github.com/Qballjos/portainer_templates"
+				"stackfile": "Template/Stack/OMV5/bookstack.yml",
+				"url": "https://github.com/SelfhostedPro/selfhosted_templates"
 			},
 			"title": "Bookstack",
 			"type": 3
@@ -444,8 +290,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/cops:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/cops-icon.png",
+			"image": "lscr.io/linuxserver/cops:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/cops-icon.png",
 			"name": "cops",
 			"platform": "linux",
 			"ports": [
@@ -456,11 +302,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Books",
+					"bind": "/srv/dev-disk-by-label-media/Books",
 					"container": "/books"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Cops",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Cops",
 					"container": "/config"
 				}
 			]
@@ -483,8 +329,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/calibre-web:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/calibre-web-icon.png",
+			"image": "lscr.io/linuxserver/calibre-web:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/calibre-web-icon.png",
 			"name": "calibre-web",
 			"platform": "linux",
 			"ports": [
@@ -495,11 +341,45 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Books",
+					"bind": "/srv/dev-disk-by-label-media/Books",
 					"container": "/books"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Calibre-web",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Calibre-web",
+					"container": "/config"
+				}
+			]
+		},
+		{
+			"categories": [
+				"Downloaders"
+			],
+			"description": "Cardigann, a server for adding extra indexers to Sonarr, SickRage and CouchPotato via Torznab and TorrentPotato proxies. Behind the scenes Cardigann logs in and runs searches and then transforms the results into a compatible format.",
+			"env": [
+				{
+					"default": "1000",
+					"label": "PUID",
+					"name": "PUID"
+				},
+				{
+					"default": "100",
+					"label": "PGID",
+					"name": "PGID"
+				}
+			],
+			"image": "lscr.io/linuxserver/cardigann:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/cardigann.png",
+			"name": "cardigann",
+			"platform": "linux",
+			"ports": [
+				"5060:5060/tcp"
+			],
+			"restart_policy": "unless-stopped",
+			"title": "Cardigann",
+			"type": 1,
+			"volumes": [
+				{
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Cardigann",
 					"container": "/config"
 				}
 			]
@@ -549,7 +429,7 @@
 				}
 			],
 			"image": "nmtan/chevereto:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/Chevereto.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/Chevereto.png",
 			"name": "Chevereto",
 			"platform": "linux",
 			"ports": [
@@ -571,7 +451,7 @@
 			],
 			"description": "ave recipes in seconds with plain text formatting and create beatiful recipe pages with automated ease.",
 			"image": "gregyankovoy/chowdown:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/chowdown.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/chowdown.png",
 			"name": "Chowdown",
 			"platform": "linux",
 			"ports": [
@@ -582,7 +462,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Chowdown",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Chowdown",
 					"container": "/config"
 				}
 			]
@@ -622,8 +502,8 @@
 					"name": "PROXY_DOMAIN"
 				}
 			],
-			"image": "linuxserver/code-server:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/code-server.png",
+			"image": "lscr.io/linuxserver/code-server:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/code-server.png",
 			"name": "code-server",
 			"platform": "linux",
 			"ports": [
@@ -634,7 +514,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Code-Server",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Code-Server",
 					"container": "/config"
 				}
 			]
@@ -656,8 +536,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/codiad:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/codiad-icon.png",
+			"image": "lscr.io/linuxserver/codiad:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/codiad-icon.png",
 			"name": "codiad",
 			"platform": "linux",
 			"ports": [
@@ -668,7 +548,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Codiad",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Codiad",
 					"container": "/config"
 				}
 			]
@@ -691,8 +571,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/couchpotato:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/couchpotato-icon.png",
+			"image": "lscr.io/linuxserver/couchpotato:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/couchpotato-icon.png",
 			"name": "couchpotato",
 			"platform": "linux",
 			"ports": [
@@ -703,15 +583,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Couchpotato",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Couchpotato",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/Movies",
+					"bind": "/srv/dev-disk-by-label-media/Movies",
 					"container": "/movies"
 				}
 			]
@@ -733,7 +613,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/daapd:latest",
+			"image": "lscr.io/linuxserver/daapd",
 			"logo": "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-icon.png",
 			"name": "daapd",
 			"platform": "linux",
@@ -742,11 +622,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Daapd",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Daapd",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Music",
+					"bind": "/srv/dev-disk-by-label-media/Music",
 					"container": "/music"
 				}
 			]
@@ -758,7 +638,7 @@
 			],
 			"description": "Another application bookmark dashboard, with fun features.",
 			"image": "rmountjoy/dashmachine:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/dashmachine_logo.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/dashmachine_logo.png",
 			"name": "dashmachine",
 			"platform": "linux",
 			"ports": [
@@ -769,7 +649,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Dashmachine",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Dashmachine",
 					"container": "/dashmachine/dashmachine/user_data"
 				}
 			]
@@ -793,8 +673,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/davos:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/davos.png",
+			"image": "lscr.io/linuxserver/davos:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/davos.png",
 			"name": "davos",
 			"platform": "linux",
 			"ports": [
@@ -805,11 +685,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Davos",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Davos",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -821,7 +701,7 @@
 			],
 			"description": "Deemix is a deezer downloader built from the ashes of Deezloader Remix.",
 			"image": "registry.gitlab.com/bockiii/deemix-docker",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/deemix.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/deemix.png",
 			"name": "deemix",
 			"note": "Deemix may take a few minutes to install. Be sure to check the logs for details. Refer to \u003ca href='https://notabug.org/RemixDevs/DeezloaderRemix/wiki/Login+via+userToken'\u003ethis page\u003c/a\u003e for userToken details.",
 			"platform": "linux",
@@ -833,11 +713,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/DeeMix",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/DeeMix",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -859,13 +739,13 @@
 					"name": "PGID"
 				},
 				{
-					"label": "UMASK_SET",
-					"name": "UMASK_SET",
+					"label": "UMASK",
+					"name": "UMASK",
 					"set": "000"
 				}
 			],
-			"image": "linuxserver/deluge:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/deluge-icon.png",
+			"image": "lscr.io/linuxserver/deluge:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/deluge-icon.png",
 			"namme": "deluge",
 			"platform": "linux",
 			"restart_policy": "unless-stopped",
@@ -873,18 +753,18 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Deluge",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Deluge",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
 		},
 		{
 			"categories": [
-				"HomeAutomation",
+				"HomeAutomation:",
 				"Management"
 			],
 			"description": "Domoticz is a Home Automation System that lets you monitor and configure various devices like: Lights, Switches, various sensors/meters like Temperature, Rain, Wind, UV, Electra, Gas, Water and much more. Notifications/Alerts can be sent to any mobile device",
@@ -900,7 +780,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/domoticz:latest",
+			"image": "lscr.io/linuxserver/domoticz:latest",
 			"logo": "https://github.com/domoticz/domoticz/raw/master/www/images/logo.png",
 			"name": "domoticz",
 			"platform": "linux",
@@ -914,7 +794,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Domoticz",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Domoticz",
 					"container": "/config"
 				}
 			]
@@ -947,8 +827,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/duckdns:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/duckdns.png",
+			"image": "lscr.io/linuxserver/duckdns:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/duckdns.png",
 			"name": "duckdns",
 			"platform": "linux",
 			"restart_policy": "unless-stopped",
@@ -976,8 +856,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/duplicati:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/duplicati-icon.png",
+			"image": "lscr.io/linuxserver/duplicati:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/duplicati-icon.png",
 			"name": "duplicati",
 			"platform": "linux",
 			"ports": [
@@ -988,7 +868,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Duplicati",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Duplicati",
 					"container": "/config"
 				},
 				{
@@ -1025,8 +905,8 @@
 					"name": "TZ"
 				}
 			],
-			"image": "linuxserver/emby:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/emby.png",
+			"image": "lscr.io/linuxserver/emby:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/emby.png",
 			"name": "Emby",
 			"platform": "linux",
 			"ports": [
@@ -1038,15 +918,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Emby",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Emby",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/data/tvshows"
 				},
 				{
-					"bind": "/portainer/Movies",
+					"bind": "/srv/dev-disk-by-label-media/Movies",
 					"container": "/data/movies"
 				}
 			]
@@ -1058,7 +938,7 @@
 			],
 			"description": "Web File Browser which can be used as a middleware or standalone app.",
 			"image": "80x86/filebrowser:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/filebrowser.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/filebrowser.png",
 			"name": "filebrowser",
 			"note": "The default user and password is admin/admin.",
 			"platform": "linux",
@@ -1070,11 +950,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/FileBrowser",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/FileBrowser",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config",
 					"container": "/myfiles"
 				}
 			]
@@ -1096,8 +976,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/freshrss:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/freshrss-icon.png",
+			"image": "lscr.io/linuxserver/freshrss:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/freshrss-icon.png",
 			"name": "freshrss",
 			"platform": "linux",
 			"ports": [
@@ -1108,7 +988,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/freshrss",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/freshrss",
 					"container": "/config"
 				}
 			]
@@ -1132,8 +1012,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/gazee:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/gazee-logo.png",
+			"image": "lscr.io/linuxserver/gazee:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/gazee-logo.png",
 			"name": "gazee",
 			"platform": "linux",
 			"restart_policy": "unless-stopped",
@@ -1141,15 +1021,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Gazee",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Gazee",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Comics",
+					"bind": "/srv/dev-disk-by-label-media/Comics",
 					"container": "/comics"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Gazee",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Gazee",
 					"container": "/mylar"
 				}
 			]
@@ -1161,7 +1041,7 @@
 			],
 			"description": "A clientless remote desktop gateway.",
 			"image": "oznu/guacamole:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/guacamole.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/guacamole.png",
 			"name": "guacamole",
 			"note": "The default login will be guacadmin/guacadmin. It is common practice to add a new admin user and remove the default user for Guacamole.",
 			"platform": "linux",
@@ -1173,7 +1053,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Guacamole",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Guacamole",
 					"container": "/config"
 				}
 			]
@@ -1201,8 +1081,8 @@
 					"name": "TZ"
 				}
 			],
-			"image": "linuxserver/grocy:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/grocy_logo.png",
+			"image": "lscr.io/linuxserver/grocy:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/grocy_logo.png",
 			"name": "grocy",
 			"platform": "linux",
 			"ports": [
@@ -1213,7 +1093,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Grocy",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Grocy",
 					"container": "/config"
 				}
 			]
@@ -1237,8 +1117,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/htpcmanager:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/htpcmanager-icon.png",
+			"image": "lscr.io/linuxserver/htpcmanager:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/htpcmanager-icon.png",
 			"name": "htpcmanager",
 			"platform": "linux",
 			"ports": [
@@ -1249,7 +1129,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/HTPCmanager",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/HTPCmanager",
 					"container": "/config"
 				}
 			]
@@ -1271,8 +1151,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/headphones:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/headphones-icon.png",
+			"image": "lscr.io/linuxserver/headphones:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/headphones-icon.png",
 			"name": "headphones",
 			"platform": "linux",
 			"ports": [
@@ -1283,15 +1163,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Headphones",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Headphones",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/Downloads"
 				},
 				{
-					"bind": "/portainer/Music",
+					"bind": "/srv/dev-disk-by-label-media/Music",
 					"container": "/music"
 				}
 			]
@@ -1315,8 +1195,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/heimdall:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/heimdall-icon.png",
+			"image": "lscr.io/linuxserver/heimdall:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/heimdall-icon.png",
 			"name": "heimdall",
 			"platform": "linux",
 			"ports": [
@@ -1328,7 +1208,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Heimdall",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Heimdall",
 					"container": "/config"
 				}
 			]
@@ -1340,7 +1220,7 @@
 			],
 			"description": "A dead simple static HOMepage for your servER to keep your s ervices on hand, from a simple yaml configuration file.",
 			"image": "b4bz/homer:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/homer.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/homer.png",
 			"name": "homer",
 			"note": "This container requires a yml file within the config volume. See the documentation here https://github.com/bastienwirtz/homer",
 			"platform": "linux",
@@ -1352,84 +1232,14 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Homer/assets",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Homer/assets",
 					"container": "/www/assets"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Homer",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Homer",
 					"container": "/www/config.yml"
 				}
 			]
-		},
-		{
-			"categories": [
-				"Other",
-				"Tools"
-			],
-			"description": "Create agents that monitor and act on your behalf.",
-			"image": "huginn/huginn:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/huginn.png",
-			"name": "huginn",
-			"platform": "linux",
-			"ports": [
-				"3000:3000/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "Huginn",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/huginn",
-					"container": "/var/lib/mysql"
-				}
-			]
-		},
-		{
-			"categories": [
-				"Cloud",
-				"Productivity",
-				"Tools",
-				"Other",
-				"Web"
-			],
-			"description": "Invoices, Expenses and Tasks built with Laravel and Flutter.",
-			"env": [
-				{
-					"default": "invoice.my.domain",
-					"label": "URL",
-					"name": "URL"
-				},
-				{
-					"label": "APP_KEY",
-					"name": "APP_KEY"
-				},
-				{
-					"label": "TZ",
-					"name": "TZ"
-				},
-				{
-					"label": "DATABASE_PASSWORD",
-					"name": "DATABASE_PASSWORD"
-				},
-				{
-					"label": "MYSQL_ROOT_PASSWORD",
-					"name": "MYSQL_ROOT_PASSWORD"
-				},
-				{
-					"label": "PORT",
-					"name": "PORT"
-				}
-			],
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/invoice_ninja.png",
-			"name": "invoice_ninja",
-			"note": "The database user is invoice_ninja and the database is ninja_db. Please generate an app key following the documentation \u003ca href='https://github.com/invoiceninja/dockerfiles'\u003ehere\u003c/a\u003e. ",
-			"platform": "linux",
-			"repository": {
-				"stackfile": "Template/Stack/invoice-ninja.yml",
-				"url": "https://github.com/Qballjos/portainer_templates"
-			},
-			"title": "Invoice Ninja",
-			"type": 3
 		},
 		{
 			"categories": [
@@ -1449,8 +1259,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/jackett:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/jacket-icon.png",
+			"image": "lscr.io/linuxserver/jackett:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/jacket-icon.png",
 			"name": "jackett",
 			"platform": "linux",
 			"ports": [
@@ -1461,11 +1271,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Jackett",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Jackett",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -1493,8 +1303,8 @@
 					"name": "TZ"
 				}
 			],
-			"image": "linuxserver/jellyfin:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/jellyfin.png",
+			"image": "lscr.io/linuxserver/jellyfin:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/jellyfin.png",
 			"name": "jellyfin",
 			"platform": "linux",
 			"ports": [
@@ -1506,15 +1316,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Jelllyfin",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Jelllyfin",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/data/tvshows"
 				},
 				{
-					"bind": "/portainer/Movies",
+					"bind": "/srv/dev-disk-by-label-media/Movies",
 					"container": "/data/movies"
 				}
 			]
@@ -1536,8 +1346,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/kodi-headless:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/kodi-icon.png",
+			"image": "lscr.io/linuxserver/kodi-headless:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/kodi-icon.png",
 			"name": "kodi-headless",
 			"platform": "linux",
 			"ports": [
@@ -1549,7 +1359,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Kodi",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Kodi",
 					"container": "/config"
 				}
 			]
@@ -1571,8 +1381,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/lazylibrarian:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/lazylibrarian-icon.png",
+			"image": "lscr.io/linuxserver/lazylibrarian:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/lazylibrarian-icon.png",
 			"name": "lazylibrarian",
 			"platform": "linux",
 			"ports": [
@@ -1646,20 +1456,20 @@
 					"set": "http"
 				}
 			],
-			"image": "linuxserver/swag:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/letsencrypt.png",
-			"name": "letsencrypt / SWAG",
+			"image": "lscr.io/linuxserver/letsencrypt:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/letsencrypt.png",
+			"name": "letsencrypt",
 			"platform": "linux",
 			"ports": [
 				"80/tcp",
 				"443/tcp"
 			],
 			"restart_policy": "unless-stopped",
-			"title": "Let's Encrypt / SWAG",
+			"title": "Let's Encrypt",
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/LetsEncrypt",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/LetsEncrypt",
 					"container": "/config"
 				}
 			]
@@ -1670,8 +1480,8 @@
 				"Tools"
 			],
 			"description": "A Free and Open Source Speedtest for HTML5 and more.",
-			"image": "linuxserver/librespeed:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/speedtest.png",
+			"image": "lscr.io/linuxserver/librespeed:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/speedtest.png",
 			"name": "librespeed",
 			"platform": "linux",
 			"ports": [
@@ -1682,7 +1492,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/LibreSpeed",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/LibreSpeed",
 					"container": "/config"
 				}
 			]
@@ -1707,8 +1517,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/lychee:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/lychee-icon.png",
+			"image": "lscr.io/linuxserver/lychee:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/lychee-icon.png",
 			"name": "lychee",
 			"platform": "linux",
 			"ports": [
@@ -1719,11 +1529,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Lychee",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Lychee",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Pictures",
+					"bind": "/srv/dev-disk-by-label-media/Pictures",
 					"container": "/pictures"
 				}
 			]
@@ -1751,8 +1561,8 @@
 					"set": ""
 				}
 			],
-			"image": "linuxserver/mariadb:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/mariadb-icon.png",
+			"image": "lscr.io/linuxserver/mariadb:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/mariadb-icon.png",
 			"name": "mariadb",
 			"platform": "linux",
 			"ports": [
@@ -1763,7 +1573,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Mariadb",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Mariadb",
 					"container": "/config"
 				}
 			]
@@ -1785,8 +1595,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/mcmyadmin2:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/mcmyadmin-icon.png",
+			"image": "lscr.io/linuxserver/mcmyadmin2:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/mcmyadmin-icon.png",
 			"name": "mcmyadmin2",
 			"platform": "linux",
 			"ports": [
@@ -1820,8 +1630,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/medusa:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/medusa-icon.png",
+			"image": "lscr.io/linuxserver/medusa:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/medusa-icon.png",
 			"name": "medusa",
 			"platform": "linux",
 			"ports": [
@@ -1832,15 +1642,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Medusa",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Medusa",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/tv"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -1862,7 +1672,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/minetest:latest",
+			"image": "lscr.io/linuxserver/minetest:latest",
 			"logo": "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/minetest-icon.png",
 			"name": "minetest",
 			"platform": "linux",
@@ -1897,8 +1707,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/minisatip:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/minisatip-icon.png",
+			"image": "lscr.io/linuxserver/minisatip:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/minisatip-icon.png",
 			"name": "minisatip",
 			"platform": "linux",
 			"ports": [
@@ -1916,8 +1726,8 @@
 				"Music"
 			],
 			"description": "Mstream is a personal music streaming server. You can use mStream to stream your music from your home computer to any device, anywhere. There are mobile apps available for both Android and iPhone..",
-			"image": "linuxserver/mstream:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/mstream.png",
+			"image": "lscr.io/linuxserver/mstream:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/mstream.png",
 			"name": "mstream",
 			"platform": "linux",
 			"ports": [
@@ -1928,11 +1738,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Mstream",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Mstream",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/music"
 				}
 			]
@@ -1961,7 +1771,7 @@
 				}
 			],
 			"image": "goofball222/murmur:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/Mumble-logo.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/Mumble-logo.png",
 			"name": "murmur",
 			"platform": "linux",
 			"ports": [
@@ -1977,15 +1787,15 @@
 					"container": "/etc/localtime"
 				},
 				{
-					"bind": "/portainer/Files/Config/Murmur",
+					"bind": "/srv/dev-disk-by-label-media/Files/Config/Murmur",
 					"container": "/opt/murmur/config"
 				},
 				{
-					"bind": "/portainer/Files/Murmur/data",
+					"bind": "/srv/dev-disk-by-label-media/Files/Murmur/data",
 					"container": "/opt/murmur/data"
 				},
 				{
-					"bind": "/portainer/Files/Murmur/log",
+					"bind": "/srv/dev-disk-by-label-media/Files/Murmur/log",
 					"container": "/opt/murmur/log"
 				}
 			]
@@ -2014,8 +1824,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/musicbrainz:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/musicbrainz-icon.png",
+			"image": "lscr.io/linuxserver/musicbrainz:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/musicbrainz-icon.png",
 			"name": "musicbrainz",
 			"platform": "linux",
 			"ports": [
@@ -2026,11 +1836,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/MusicBrainz",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/MusicBrainz",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/AppData/MusicBrainz",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/MusicBrainz",
 					"container": "/data"
 				}
 			]
@@ -2055,8 +1865,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/muximux:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/muximux-icon.png",
+			"image": "lscr.io/linuxserver/muximux:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/muximux-icon.png",
 			"name": "muximux",
 			"platform": "linux",
 			"ports": [
@@ -2067,7 +1877,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Muximux",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Muximux",
 					"container": "/config"
 				}
 			]
@@ -2090,8 +1900,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/mylar:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/mylar-icon.png",
+			"image": "lscr.io/linuxserver/mylar:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/mylar-icon.png",
 			"name": "mylar",
 			"platform": "linux",
 			"ports": [
@@ -2102,15 +1912,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Mylar",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Mylar",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/Comics",
+					"bind": "/srv/dev-disk-by-label-media/Comics",
 					"container": "/comics"
 				}
 			]
@@ -2132,8 +1942,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/nzbget:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/nzbget-icon.png",
+			"image": "lscr.io/linuxserver/nzbget:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/nzbget-icon.png",
 			"name": "nzbget",
 			"platform": "linux",
 			"ports": [
@@ -2144,11 +1954,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Nzbget",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Nzbget",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -2172,8 +1982,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/nzbhydra2:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/hydra-icon.png",
+			"image": "lscr.io/linuxserver/nzbhydra2:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/hydra-icon.png",
 			"name": "nzbhydra2",
 			"platform": "linux",
 			"ports": [
@@ -2184,11 +1994,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Nzbhydra2",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Nzbhydra2",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -2230,13 +2040,13 @@
 					"name": "PORT"
 				}
 			],
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/nextcloud-icon.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/nextcloud-icon.png",
 			"name": "nextcloud",
 			"note": "The database user is nextcloud and the database is nextcloud_db. The host of the database will be located at the bottom of the DB conotainer in portainer.",
 			"platform": "linux",
 			"repository": {
-				"stackfile": "Template/Stack/nextcloud.yml",
-				"url": "https://github.com/Qballjos/portainer_templates"
+				"stackfile": "Template/Stack/OMV5/nextcloud.yml",
+				"url": "https://github.com/SelfhostedPro/selfhosted_templates"
 			},
 			"title": "Nextcloud",
 			"type": 3
@@ -2259,8 +2069,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/nginx:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/nginx-icon.png",
+			"image": "lscr.io/linuxserver/nginx:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/nginx-icon.png",
 			"name": "nginx",
 			"platform": "linux",
 			"ports": [
@@ -2272,7 +2082,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Nginx",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Nginx",
 					"container": "/config"
 				}
 			]
@@ -2283,17 +2093,10 @@
 				"Tools"
 			],
 			"description": "Nginx Proxy Manager enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.",
-			"image": "jc21/nginx-proxy-manager",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/proxy_mgr.png",
+			"image": "jlesage/nginx-proxy-manager",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/proxy_mgr.png",
 			"name": "nginx-proxy-manager",
 			"platform": "linux",
-			"env": [
-				{
-					"label": "DB_SQLITE_FILE",
-					"name": "DB_SQLITE_FILE",
-					"default": "/data/database.sqlite"
-				}
-			],
 			"ports": [
 				"80:8080/tcp",
 				"81:8181/tcp",
@@ -2304,12 +2107,8 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Nginx-Proxy/data",
-					"container": "/data"
-				},
-				{
-					"bind": "/portainer/Files/AppData/Config/Nginx-Proxy/letsencrypt",
-					"container": "/etc/letsencrypt"
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Nginx-Proxy",
+					"container": "/config"
 				}
 			]
 		},
@@ -2330,7 +2129,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/oscam:latest",
+			"image": "lscr.io/linuxserver/oscam:latest",
 			"logo": "http://i.imgur.com/8LadrLg.png",
 			"name": "oscam",
 			"platform": "linux",
@@ -2343,7 +2142,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/OScam",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/OScam",
 					"container": "/config"
 				}
 			]
@@ -2368,8 +2167,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/ombi:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/ombi.png",
+			"image": "lscr.io/linuxserver/ombi:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ombi.png",
 			"name": "ombi",
 			"platform": "linux",
 			"ports": [
@@ -2380,7 +2179,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Ombi",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Ombi",
 					"container": "/config"
 				}
 			]
@@ -2407,8 +2206,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/openvpn-as:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/openvpn-as-icon.png",
+			"image": "lscr.io/linuxserver/openvpn-as:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/openvpn-as-icon.png",
 			"name": "openvpn-as",
 			"platform": "linux",
 			"ports": [
@@ -2421,7 +2220,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/OpenVPN-AS",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/OpenVPN-AS",
 					"container": "/config"
 				}
 			]
@@ -2444,19 +2243,19 @@
 					"name": "PGID"
 				}
 			],
-			"image": "organizr/organizr:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/organizr-icon.png",
+			"image": "organizrtools/organizr-v2:php-fpm",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/organizr-icon.png",
 			"name": "organizr-v2",
 			"platform": "linux",
 			"ports": [
 				"80/tcp"
 			],
 			"restart_policy": "unless-stopped",
-			"title": "Organizr",
+			"title": "Organizr v2",
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Organizr",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Organizr",
 					"container": "/config"
 				}
 			]
@@ -2478,8 +2277,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/photoshow:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/photoshow-icon.png",
+			"image": "lscr.io/linuxserver/photoshow:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/photoshow-icon.png",
 			"name": "photoshow",
 			"platform": "linux",
 			"ports": [
@@ -2490,15 +2289,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Pictures",
+					"bind": "/srv/dev-disk-by-label-media/Pictures",
 					"container": "/Pictures"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Photoshow/Thumbs",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Photoshow/Thumbs",
 					"container": "/Thumbs"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/PhotoShow",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/PhotoShow",
 					"container": "/config"
 				}
 			]
@@ -2510,7 +2309,7 @@
 			],
 			"description": "A Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole.",
 			"image": "pihole/pihole:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/pihole.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/pihole.png",
 			"name": "pihole",
 			"note": "When the installation is complete, navigate to your.ip.goes.here:1010/admin. Follow the article \u003ca href='https://medium.com/@niktrix/getting-rid-of-systemd-resolved-consuming-port-53-605f0234f32f'\u003ehere\u003c/a\u003e if you run into issues binding to port 53.",
 			"platform": "linux",
@@ -2526,11 +2325,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/PiHole",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/PiHole",
 					"container": "/etc/pihole"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/PiHole/DNS",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/PiHole/DNS",
 					"container": "/etc/dnsmasq.d"
 				}
 			]
@@ -2552,8 +2351,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/piwigo:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/piwigo-icon.png",
+			"image": "lscr.io/linuxserver/piwigo:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/piwigo-icon.png",
 			"name": "piwigo",
 			"platform": "linux",
 			"ports": [
@@ -2564,7 +2363,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/PiWigo",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/PiWigo",
 					"container": "/config"
 				}
 			]
@@ -2593,8 +2392,8 @@
 					"set": "latest"
 				}
 			],
-			"image": "linuxserver/plex:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/plex-icon.png",
+			"image": "lscr.io/linuxserver/plex:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/plex-icon.png",
 			"name": "plex",
 			"network": "host",
 			"platform": "linux",
@@ -2603,15 +2402,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Plex",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Plex",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/tv"
 				},
 				{
-					"bind": "/portainer/Movies",
+					"bind": "/srv/dev-disk-by-label-media/Movies",
 					"container": "/movies"
 				}
 			]
@@ -2641,7 +2440,7 @@
 					"set": ""
 				}
 			],
-			"image": "linuxserver/plexrequests:latest",
+			"image": "lscr.io/linuxserver/plexrequests:latest",
 			"logo": "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/plexrequests-icon.png",
 			"name": "plexrequests",
 			"platform": "linux",
@@ -2653,7 +2452,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/PlexRequests",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/PlexRequests",
 					"container": "/config"
 				}
 			]
@@ -2678,8 +2477,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/projectsend:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/projectsend-logo.png",
+			"image": "lscr.io/linuxserver/projectsend:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/projectsend-logo.png",
 			"name": "projectsend",
 			"platform": "linux",
 			"ports": [
@@ -2690,11 +2489,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/ProjectSend",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/ProjectSend",
 					"container": "/data"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/ProjectSend",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/ProjectSend",
 					"container": "/config"
 				}
 			]
@@ -2708,7 +2507,7 @@
 			],
 			"description": "This is an unofficial Docker container of the ProtonMail Bridge. Some of the scripts are based on Hendrik Meyer's work.",
 			"image": "shenxn/protonmail-bridge:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/protonmail-bridge.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/protonmail-bridge.png",
 			"name": "protonmail-bridge",
 			"note": "Please refer to the documentation \u003ca href='https://hub.docker.com/r/shenxn/protonmail-bridge'/\u003ehere\u003c/a\u003e to set this up.",
 			"platform": "linux",
@@ -2721,7 +2520,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/ProtonMail-Bridge",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/ProtonMail-Bridge",
 					"container": "/root"
 				}
 			]
@@ -2744,8 +2543,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/pydio:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/pydio-icon.png",
+			"image": "lscr.io/linuxserver/pydio:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/pydio-icon.png",
 			"name": "pydio",
 			"platform": "linux",
 			"ports": [
@@ -2756,11 +2555,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Pydio",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Pydio",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Pydio",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Pydio",
 					"container": "/data"
 				}
 			]
@@ -2782,8 +2581,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/quassel-core:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/quassel-core-icon.png",
+			"image": "lscr.io/linuxserver/quassel-core:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/quassel-core-icon.png",
 			"name": "quassel-core",
 			"platform": "linux",
 			"ports": [
@@ -2794,7 +2593,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Quassel-core",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Quassel-core",
 					"container": "/config"
 				}
 			]
@@ -2817,8 +2616,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/radarr:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/radarr.png",
+			"image": "lscr.io/linuxserver/radarr:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/radarr.png",
 			"name": "radarr",
 			"platform": "linux",
 			"ports": [
@@ -2829,15 +2628,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Radarr",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Radarr",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/Movies",
+					"bind": "/srv/dev-disk-by-label-media/Movies",
 					"container": "/movies"
 				}
 			]
@@ -2849,7 +2648,7 @@
 			],
 			"description": "A one-of-a-kind resume builder that's not out to get your data. Completely secure, customizable, portable, open-source and free forever.",
 			"image": "amruthpillai/reactive-resume:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/reactiveresume.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/reactiveresume.png",
 			"name": "reactive-resume",
 			"platform": "linux",
 			"ports": [
@@ -2860,7 +2659,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/ReactiveResume",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/ReactiveResume",
 					"container": "/usr/src/app"
 				}
 			]
@@ -2885,8 +2684,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/resilio-sync:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/resilio.png",
+			"image": "lscr.io/linuxserver/resilio-sync:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/resilio.png",
 			"name": "resilio-sync",
 			"platform": "linux",
 			"restart_policy": "unless-stopped",
@@ -2894,14 +2693,14 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Resilio-Sync",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Resilio-Sync",
 					"container": "/config"
 				},
 				{
 					"container": "/sync"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -2923,8 +2722,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/sabnzbd:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/sabnzbd-icon.png",
+			"image": "lscr.io/linuxserver/sabnzbd:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/sabnzbd-icon.png",
 			"name": "sabnzbd",
 			"platform": "linux",
 			"ports": [
@@ -2936,15 +2735,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Sabnzbd",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Sabnzbd",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/Downloads/incomplete",
+					"bind": "/srv/dev-disk-by-label-media/Downloads/incomplete",
 					"container": "/incomplete-downloads"
 				}
 			]
@@ -2956,7 +2755,7 @@
 			],
 			"description": "Shiori is a simple bookmarks manager written in Go language. Intended as a simple clone of Pocket. You can use it as command line application or as web application.",
 			"image": "radhifadlillah/shiori:latest",
-			"logo": "https://raw.githubusercontent.com/robocopAlpha/selfhosted_templates/master/Images/shiori-icon.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/shiori-icon.png",
 			"name": "shiori",
 			"platform": "linux",
 			"ports": [
@@ -2967,7 +2766,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Shiori",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Shiori",
 					"container": "/srv/shiori"
 				}
 			]
@@ -2990,8 +2789,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/sickchill:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/sickchill-icon.png",
+			"image": "lscr.io/linuxserver/sickchill:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/sickchill-icon.png",
 			"name": "sickchill",
 			"platform": "linux",
 			"ports": [
@@ -3002,15 +2801,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/SickChill",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/SickChill",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/tv"
 				}
 			]
@@ -3033,8 +2832,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/sickgear:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/sickgear-icon.png",
+			"image": "lscr.io/linuxserver/sickgear:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/sickgear-icon.png",
 			"name": "sickgear",
 			"platform": "linux",
 			"ports": [
@@ -3045,15 +2844,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/SickGear",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/SickGear",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/tv"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -3075,8 +2874,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/smokeping:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/smokeping-icon.png",
+			"image": "lscr.io/linuxserver/smokeping:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/smokeping-icon.png",
 			"name": "smokeping",
 			"platform": "linux",
 			"ports": [
@@ -3087,11 +2886,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Smokeping",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Smokeping",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Smokeping",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Smokeping",
 					"container": "/data"
 				}
 			]
@@ -3114,8 +2913,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/sonarr:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/sonarr-icon.png",
+			"image": "lscr.io/linuxserver/sonarr:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/sonarr-icon.png",
 			"name": "sonarr",
 			"platform": "linux",
 			"ports": [
@@ -3126,7 +2925,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Sonarr",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Sonarr",
 					"container": "/config"
 				},
 				{
@@ -3134,11 +2933,11 @@
 					"container": "/dev/rtc"
 				},
 				{
-					"bind": "/portainer/TV",
+					"bind": "/srv/dev-disk-by-label-media/TV",
 					"container": "/tv"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -3163,8 +2962,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/syncthing:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/syncthing-icon.png",
+			"image": "lscr.io/linuxserver/syncthing:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/syncthing-icon.png",
 			"name": "syncthing",
 			"platform": "linux",
 			"ports": [
@@ -3177,7 +2976,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Syncthing",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Syncthing",
 					"container": "/config"
 				},
 				{
@@ -3203,8 +3002,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/tautulli:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/tautulli-icon.png",
+			"image": "lscr.io/linuxserver/tautulli:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/tautulli-icon.png",
 			"name": "tautulli",
 			"platform": "linux",
 			"ports": [
@@ -3215,11 +3014,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Logs",
+					"bind": "/srv/dev-disk-by-label-media/Logs",
 					"container": "/logs"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Tautulli",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Tautulli",
 					"container": "/config"
 				}
 			]
@@ -3241,7 +3040,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/thelounge:latest",
+			"image": "lscr.io/linuxserver/thelounge:latest",
 			"logo": "https://raw.githubusercontent.com/linuxserver/community-templates/master/lsiocommunity/img/shout-icon.png",
 			"name": "thelounge",
 			"platform": "linux",
@@ -3253,7 +3052,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/TheLounge",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/TheLounge",
 					"container": "/config"
 				}
 			]
@@ -3265,7 +3064,7 @@
 			],
 			"description": "A unique, non-linear notebook wiki.",
 			"image": "mazzolino/tiddlywiki:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/tiddlywiki.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/tiddlywiki.png",
 			"name": "tiddlywiki",
 			"platform": "linux",
 			"ports": [
@@ -3276,7 +3075,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/TiddlyWiki",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/TiddlyWiki",
 					"container": "/var/lib/tiddlywiki"
 				}
 			]
@@ -3299,7 +3098,7 @@
 				}
 			],
 			"image": "lunik1/tt-rss:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/tt-rss-icon.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/tt-rss-icon.png",
 			"name": "tt-rss",
 			"platform": "linux",
 			"ports": [
@@ -3310,7 +3109,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/tt-rss",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/tt-rss",
 					"container": "/config"
 				}
 			]
@@ -3332,8 +3131,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/transmission:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/transmission-icon.png",
+			"image": "lscr.io/linuxserver/transmission:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/transmission-icon.png",
 			"name": "transmission",
 			"platform": "linux",
 			"ports": [
@@ -3345,11 +3144,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Transmission",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Transmission",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Files/Downloads",
 					"container": "/downloads"
 				},
 				{
@@ -3398,7 +3197,7 @@
 				}
 			],
 			"image": "haugene/transmission-openvpn:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/transmission-icon.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/transmission-icon.png",
 			"name": "transmission-openvpn",
 			"note": "List of supported providers available \u003ca href='https://haugene.github.io/docker-transmission-openvpn/supported-providers'/\u003ehere\u003c/a\u003e.",
 			"platform": "linux",
@@ -3410,7 +3209,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/data"
 				},
 				{
@@ -3437,7 +3236,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/tvheadend:latest",
+			"image": "lscr.io/linuxserver/tvheadend:latest",
 			"logo": "http://i.imgur.com/zGSUAT4.png",
 			"name": "tvheadend",
 			"platform": "linux",
@@ -3450,11 +3249,35 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/TVHeadend",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/TVHeadend",
 					"container": "/config"
 				},
 				{
 					"container": "/recordings"
+				}
+			]
+		},
+		{
+			"categories": [
+				"Other",
+				"Tools"
+			],
+			"description": "This is a Bitwarden server API implementation written in Rust compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal..",
+			"image": "vaultwarden/server:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/bitwarden.png",
+			"name": "vaultwarden",
+			"note": "This project is not associated with the Bitwarden project nor 8bit Solutions LLC.",
+			"platform": "linux",
+			"ports": [
+				":80/tcp"
+			],
+			"restart_policy": "unless-stopped",
+			"title": "Vaultwarden",
+			"type": 1,
+			"volumes": [
+				{
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Vaultwarden",
+					"container": "/config"
 				}
 			]
 		},
@@ -3481,8 +3304,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/ubooquity:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/ubooquity-icon.png",
+			"image": "lscr.io/linuxserver/ubooquity:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ubooquity-icon.png",
 			"name": "ubooquity",
 			"platform": "linux",
 			"ports": [
@@ -3522,8 +3345,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/unifi-controller:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/unifi-icon.png",
+			"image": "lscr.io/linuxserver/unifi-controller:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/unifi-icon.png",
 			"name": "unifi-controller",
 			"platform": "linux",
 			"ports": [
@@ -3541,7 +3364,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Unifi",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Unifi",
 					"container": "/config"
 				}
 			]
@@ -3554,7 +3377,7 @@
 			],
 			"description": "With watchtower you can update the running version of your containerized app simply by pushing a new image to the Docker Hub or your own image registry. Watchtower will pull down your new image, gracefully shut down your existing container and restart it with the same options that were used when it was deployed initially.",
 			"image": "containrrr/watchtower:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/watchtower.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/watchtower.png",
 			"name": "watchtower",
 			"note": "It is recommended to manually update your containers but we're including this for those of you that don't care",
 			"platform": "linux",
@@ -3585,8 +3408,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/webgrabplus:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/webgrabplus.png",
+			"image": "lscr.io/linuxserver/webgrabplus:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/webgrabplus.png",
 			"name": "webgrabplus",
 			"platform": "linux",
 			"restart_policy": "unless-stopped",
@@ -3594,11 +3417,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/WebGrabPlus",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/WebGrabPlus",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/AppData/WebGrabPlus",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/WebGrabPlus",
 					"container": "/data"
 				}
 			]
@@ -3610,7 +3433,7 @@
 			],
 			"description": "Self-hosted, ad-free, privacy-respecting Google metasearch engine.",
 			"image": "benbusby/whoogle-search:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/whoogle.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/whoogle.png",
 			"name": "whoogle",
 			"platform": "linux",
 			"ports": [
@@ -3621,7 +3444,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Whoogle",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Whoogle",
 					"container": "/config"
 				}
 			]
@@ -3632,8 +3455,8 @@
 				"Tools"
 			],
 			"description": "Wikijs A modern, lightweight and powerful wiki app built on NodeJS.",
-			"image": "linuxserver/wikijs:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/wikijs.png",
+			"image": "lscr.io/linuxserver/wikijs:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/wikijs.png",
 			"name": "Wikijs",
 			"platform": "linux",
 			"ports": [
@@ -3644,11 +3467,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Wikijs",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Wikijs",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Config/Wikijs/data",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Wikijs/data",
 					"container": "/data"
 				}
 			]
@@ -3660,7 +3483,7 @@
 			],
 			"description": "YoutubeDL-Material is a Material Design frontend for youtube-dl. It's coded using Angular 9 for the frontend, and Node.js on the backend.",
 			"image": "tzahi12345/youtubedl-material:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/ytdlm.png",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ytdlm.png",
 			"name": "youtubedl-material",
 			"platform": "linux",
 			"ports": [
@@ -3671,23 +3494,23 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/YTDLM",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/YTDLM",
 					"container": "/app/appdata"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Youtube/Video",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Youtube/Video",
 					"container": "/app/video"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Youtube/Subscriptions",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Youtube/Subscriptions",
 					"container": "/app/subscriptions"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Youtube/Users",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Youtube/Users",
 					"container": "/app/users"
 				},
 				{
-					"bind": "/portainer/Files/AppData/Youtube/Audio",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Youtube/Audio",
 					"container": "/app/audio"
 				}
 			]
@@ -3709,8 +3532,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/znc:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/znc-icon.png",
+			"image": "lscr.io/linuxserver/znc:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/znc-icon.png",
 			"name": "znc",
 			"platform": "linux",
 			"ports": [
@@ -3721,7 +3544,7 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/ZNC",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/ZNC",
 					"container": "/config"
 				}
 			]
@@ -3744,8 +3567,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/lidarr:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/lidarr.png",
+			"image": "lscr.io/linuxserver/lidarr:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/lidarr.png",
 			"name": "lidarr",
 			"platform": "linux",
 			"ports": [
@@ -3756,15 +3579,15 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/Lidarr",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/Lidarr",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				},
 				{
-					"bind": "/portainer/Music",
+					"bind": "/srv/dev-disk-by-label-media/Music",
 					"container": "/music"
 				}
 			]
@@ -3786,8 +3609,8 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/qbittorrent:latest",
-			"logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/qbittorrent-icon.png",
+			"image": "lscr.io/linuxserver/qbittorrent:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/qbittorrent-icon.png",
 			"name": "qbittorrent",
 			"platform": "linux",
 			"ports": [
@@ -3800,11 +3623,11 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/qBittorrent",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/qBittorrent",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
@@ -3853,7 +3676,7 @@
 					"name": "PGID"
 				}
 			],
-			"image": "linuxserver/rutorrent:latest",
+			"image": "lscr.io/linuxserver/rutorrent:latest",
 			"logo": "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/rutorrent-icon.png",
 			"name": "rutorrent",
 			"platform": "linux",
@@ -3867,14 +3690,71 @@
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/ruTorrent",
+					"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/ruTorrent",
 					"container": "/config"
 				},
 				{
-					"bind": "/portainer/Downloads",
+					"bind": "/srv/dev-disk-by-label-media/Downloads",
 					"container": "/downloads"
 				}
 			]
-		}
+		},
+		{
+			"type": 1,
+			"title": "Peppermint",
+			"name": "Peppermint",
+			"description": "Peppermint is a free and open source tickeg management solution with a range of features",
+			"logo": "https://raw.githubusercontent.com/Peppermint-Lab/peppermint/master/public/logo.svg",
+			"image": "pepperlabs/peppermint:latest",
+			"categories": [
+			  "Other",
+			  "Tools",
+			  "Management"
+			],
+			"platform": "linux",
+			"restart_policy": "unless-stopped",
+			"ports": [
+			  "5001:5001/tcp"
+			],
+			"volumes": [
+			  {
+				"container": "/data",
+				"bind": "/srv/dev-disk-by-label-media/Files/AppData/Config/peppermint"
+		
+			  }
+			],
+			"env": [
+			  {
+				"name": "PUID",
+				"label": "PUID",
+				"default": "1000"
+			  },
+			  {
+				"name": "PGID",
+				"label": "PGID",
+				"default": "100"
+			  },
+			  {
+				"name": "PORT",
+				"label": "PORT",
+				"default": "5001"
+			  },
+			  {
+				"name": "DB_USERNAME",
+				"label": "DB_USERNAME",
+				"default": "peppermint"
+			  },
+			  {
+				"name": "DB_PASSWORD",
+				"label": "DB_PASSWORD",
+				"default": "1234"
+			  },
+			  {
+				"name": "DB_HOST",
+				"label": "DB_HOST",
+				"default": "postgres"
+			  }
+			]
+		  }
 	]
 }
